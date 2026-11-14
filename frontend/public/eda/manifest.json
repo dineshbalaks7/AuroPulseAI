@@ -1,0 +1,173 @@
+[
+  {
+    "id": "fd001_sensor_distributions",
+    "dataset": "FD001",
+    "file": "/eda/fd001_sensor_distributions.png",
+    "title": "FD001 Sensor Telemetry Distributions",
+    "category": "EDA",
+    "desc": "EDA: Histograms showing distribution curves across all 21 raw sensors",
+    "size_kb": 284.9
+  },
+  {
+    "id": "fd001_correlation_matrix",
+    "dataset": "FD001",
+    "file": "/eda/fd001_correlation_matrix.png",
+    "title": "FD001 Inter-Sensor Correlation Heatmap",
+    "category": "EDA",
+    "desc": "EDA: Pearson r correlation matrix identifying coupled thermodynamic variables",
+    "size_kb": 193.3
+  },
+  {
+    "id": "fd001_engine_life_distribution",
+    "dataset": "FD001",
+    "file": "/eda/fd001_engine_life_distribution.png",
+    "title": "Fleet Operational Lifetime Distribution",
+    "category": "EDA",
+    "desc": "EDA: Maximum operating cycles before failure comparing FD001 vs FD002",
+    "size_kb": 18.7
+  },
+  {
+    "id": "fd001_engine1_sensors",
+    "dataset": "FD001",
+    "file": "/eda/fd001_engine1_sensors.png",
+    "title": "Engine #1 Sensor Telemetry over Time",
+    "category": "EDA",
+    "desc": "EDA: Critical sensor trends (T24, T30, T50, P30) over operating cycles",
+    "size_kb": 207.3
+  },
+  {
+    "id": "fd001_smoothed_sensor_trends",
+    "dataset": "FD001",
+    "file": "/eda/fd001_smoothed_sensor_trends.png",
+    "title": "10-Cycle Rolling Mean Sensor Trends",
+    "category": "EDA",
+    "desc": "EDA: Noise-filtered degradation trajectories showing clear upward drift",
+    "size_kb": 261.4
+  },
+  {
+    "id": "fd001_feature_importance",
+    "dataset": "FD001",
+    "file": "/eda/fd001_feature_importance.png",
+    "title": "XGBoost Feature Importance Ranking",
+    "category": "Model Analysis",
+    "desc": "Model Analysis: Top 15 telemetry features driving RUL predictions",
+    "size_kb": 34.6
+  },
+  {
+    "id": "fd001_true_vs_predicted_rul",
+    "dataset": "FD001",
+    "file": "/eda/fd001_true_vs_predicted_rul.png",
+    "title": "FD001 True vs Predicted RUL",
+    "category": "Model Analysis",
+    "desc": "Prediction: Model predictions vs ground truth with target capping at 125 cycles",
+    "size_kb": 204.5
+  },
+  {
+    "id": "fd001_residuals_scatter",
+    "dataset": "FD001",
+    "file": "/eda/fd001_residuals_scatter.png",
+    "title": "FD001 Residuals vs Predicted RUL",
+    "category": "Prediction",
+    "desc": "Prediction: Error distribution highlighting residual dispersion around 0",
+    "size_kb": 192.1
+  },
+  {
+    "id": "fd001_residuals_histogram",
+    "dataset": "FD001",
+    "file": "/eda/fd001_residuals_histogram.png",
+    "title": "FD001 Prediction Error Distribution",
+    "category": "Prediction",
+    "desc": "Prediction: Error histogram confirming bell-shaped residual distribution",
+    "size_kb": 18.6
+  },
+  {
+    "id": "fd001_best_worst_comparison",
+    "dataset": "FD001",
+    "file": "/eda/fd001_best_worst_comparison.png",
+    "title": "Degradation Comparison (Best vs Worst 10 Engines)",
+    "category": "EDA",
+    "desc": "EDA: Core speed (Nc) and fuel ratio differences in early vs late failures",
+    "size_kb": 30.4
+  },
+  {
+    "id": "fd001_engine_by_engine_rul",
+    "dataset": "FD001",
+    "file": "/eda/fd001_engine_by_engine_rul.png",
+    "title": "Final Cycle RUL Prediction per Engine",
+    "category": "Prediction",
+    "desc": "Prediction: Engine-by-engine comparison of actual vs predicted RUL",
+    "size_kb": 134.3
+  },
+  {
+    "id": "fd001_model_comparison",
+    "dataset": "FD001",
+    "file": "/eda/fd001_model_comparison.png",
+    "title": "FD001 Capped vs Uncapped Performance",
+    "category": "Model Analysis",
+    "desc": "Model Evaluation: MAE, RMSE, and R2 performance comparison",
+    "size_kb": 23.1
+  },
+  {
+    "id": "fd002_sensor_distributions",
+    "dataset": "FD002",
+    "file": "/eda/fd002_sensor_distributions.png",
+    "title": "FD002 Multi-Regime Sensor Distributions",
+    "category": "EDA",
+    "desc": "EDA: Sensor spreads exhibiting multi-modal distributions due to 6 flight regimes",
+    "size_kb": 294.6
+  },
+  {
+    "id": "fd002_sensor2_by_condition",
+    "dataset": "FD002",
+    "file": "/eda/fd002_sensor2_by_condition.png",
+    "title": "Sensor 2 Variation across Operating Regimes",
+    "category": "EDA",
+    "desc": "EDA: Boxplot demonstrating strong dependency of LPC temperature on flight regime",
+    "size_kb": 20.7
+  },
+  {
+    "id": "fd002_sensor_variation",
+    "dataset": "FD002",
+    "file": "/eda/fd002_sensor_variation.png",
+    "title": "Within-Condition Sensor Variance",
+    "category": "EDA",
+    "desc": "EDA: Standard deviations within operating regimes before normalization",
+    "size_kb": 40.3
+  },
+  {
+    "id": "fd002_sensor2_vs_cycles_regimes",
+    "dataset": "FD002",
+    "file": "/eda/fd002_sensor2_vs_cycles_regimes.png",
+    "title": "Sensor 2 Trajectory Clustered by Regimes",
+    "category": "EDA",
+    "desc": "EDA: Distinct clusters corresponding to the 6 operating flight envelopes",
+    "size_kb": 130.0
+  },
+  {
+    "id": "fd002_engine1_condition_trajectory",
+    "dataset": "FD002",
+    "file": "/eda/fd002_engine1_condition_trajectory.png",
+    "title": "Engine #1 Multi-Regime Flight Cycles",
+    "category": "EDA",
+    "desc": "EDA: Operating conditions traversed by Engine 1 throughout its service life",
+    "size_kb": 51.1
+  },
+  {
+    "id": "fd002_true_vs_predicted",
+    "dataset": "FD002",
+    "file": "/eda/fd002_true_vs_predicted.png",
+    "title": "FD002 True vs Predicted RUL",
+    "category": "Prediction",
+    "desc": "Prediction: Normalized XGBoost predictions vs actual RUL on multi-condition holdout",
+    "size_kb": 329.7
+  },
+  {
+    "id": "fd002_model_progression",
+    "dataset": "FD002",
+    "file": "/eda/fd002_model_progression.png",
+    "title": "FD002 Model Iteration Comparison",
+    "category": "Model Analysis",
+    "desc": "Model Evaluation: Baseline vs Normalized vs Hyperparameter-Tuned XGBoost",
+    "size_kb": 101.7
+  }
+]
