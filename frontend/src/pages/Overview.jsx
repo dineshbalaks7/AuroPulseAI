@@ -20,12 +20,14 @@ import RecentAlertsList from '../components/dashboard/RecentAlertsList';
 import LoadingSkeleton from '../components/common/LoadingSkeleton';
 import EmptyState from '../components/common/EmptyState';
 import ErrorState from '../components/common/ErrorState';
+import ApiConfigModal from '../components/common/ApiConfigModal';
 
 export const Overview = () => {
   const { selectedDataset, thresholds, apiHealth, verifyHealth } = useDataset();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showConfigModal, setShowConfigModal] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -110,19 +112,43 @@ export const Overview = () => {
 
       {/* Backend Disconnection Banner if API is unreachable */}
       {(!apiHealth?.connected && apiHealth?.status !== 'checking') && (
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3 text-xs text-amber-900">
-          <ServerOff className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <span className="font-bold block">Backend Connection Required:</span>
-            <p className="leading-relaxed">
-              The frontend is currently unable to reach the FastAPI backend service. If deployed on Vercel, ensure you have set the <strong>VITE_API_BASE_URL</strong> environment variable in your Vercel Project Settings pointing to your live Railway backend URL.
-            </p>
+        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-amber-900">
+          <div className="flex items-start gap-2.5">
+            <ServerOff className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold block">Backend Connection Required:</span>
+              <p className="text-amber-800 text-[11px] leading-relaxed">
+                Connect this frontend to your live Railway FastAPI service to stream real-time predictions.
+              </p>
+            </div>
           </div>
+          <button
+            onClick={() => setShowConfigModal(true)}
+            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold shrink-0 transition-colors shadow-xs"
+          >
+            Connect Railway API
+          </button>
         </div>
       )}
 
       {/* Error state */}
-      {error && <ErrorState message={error} onRetry={fetchData} />}
+      {error && (
+        <ErrorState
+          message={error}
+          onRetry={fetchData}
+          onConfigureApi={() => setShowConfigModal(true)}
+        />
+      )}
+
+      {/* API Configuration Modal */}
+      <ApiConfigModal
+        isOpen={showConfigModal}
+        onClose={() => setShowConfigModal(false)}
+        onConnected={() => {
+          fetchData();
+          verifyHealth?.();
+        }}
+      />
 
       {/* Loading state */}
       {loading && !data && (

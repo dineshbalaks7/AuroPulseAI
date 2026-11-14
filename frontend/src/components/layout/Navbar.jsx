@@ -10,8 +10,10 @@ import {
   ChevronDown,
   User,
   ExternalLink,
+  Settings,
 } from 'lucide-react';
 import { useDataset } from '../../context/DatasetContext';
+import ApiConfigModal from '../common/ApiConfigModal';
 
 export const Navbar = ({ setMobileOpen }) => {
   const {
@@ -25,6 +27,7 @@ export const Navbar = ({ setMobileOpen }) => {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showDatasetMenu, setShowDatasetMenu] = useState(false);
+  const [showApiModal, setShowApiModal] = useState(false);
 
   return (
     <header className="h-16 bg-white border-b border-surface-border sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6">
@@ -111,7 +114,7 @@ export const Navbar = ({ setMobileOpen }) => {
 
         {/* API Connection Indicator */}
         <div
-          onClick={verifyHealth}
+          onClick={() => setShowApiModal(true)}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs cursor-pointer transition-colors shadow-xs ${
             apiHealth.connected
               ? 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
@@ -119,8 +122,8 @@ export const Navbar = ({ setMobileOpen }) => {
           }`}
           title={
             apiHealth.connected
-              ? `FastAPI Backend Online (${apiHealth.latency}ms). Click to re-verify.`
-              : 'API Offline: Python backend at http://localhost:8000 unreachable. Click to retry.'
+              ? `FastAPI Backend Online (${apiHealth.latency}ms). Click to view / change API endpoint.`
+              : 'API Offline. Click to configure live backend endpoint URL.'
           }
         >
           <span
@@ -129,10 +132,17 @@ export const Navbar = ({ setMobileOpen }) => {
             }`}
           />
           <span className="font-medium text-[11px] hidden sm:inline">
-            {apiHealth.connected ? `FastAPI Live (${apiHealth.latency}ms)` : 'API Offline'}
+            {apiHealth.connected ? `FastAPI Live (${apiHealth.latency}ms)` : 'Connect API'}
           </span>
           <RefreshCw className="w-3 h-3 text-secondary opacity-70 hover:opacity-100" />
         </div>
+
+        {/* API Configuration Modal */}
+        <ApiConfigModal
+          isOpen={showApiModal}
+          onClose={() => setShowApiModal(false)}
+          onConnected={() => verifyHealth?.()}
+        />
 
         {/* Notifications Dropdown */}
         <div className="relative">
