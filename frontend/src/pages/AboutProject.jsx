@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Plane,
@@ -26,12 +26,6 @@ import {
   Sliders,
   Zap,
   LayoutDashboard,
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize2,
-  Radio,
 } from 'lucide-react';
 import ProjectWorkflow from '../components/about/ProjectWorkflow';
 import SystemArchitecture from '../components/about/SystemArchitecture';
@@ -43,38 +37,6 @@ import engineService from '../services/engineService';
 export const AboutProject = () => {
   const [fd001Metrics, setFd001Metrics] = useState(null);
   const [fd002Metrics, setFd002Metrics] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef(null);
-
-  const handleTogglePlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  const handleToggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen();
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        videoRef.current.webkitRequestFullscreen();
-      }
-    }
-  };
 
   useEffect(() => {
     let isMounted = true;
@@ -101,240 +63,67 @@ export const AboutProject = () => {
   return (
     <div className="space-y-12 max-w-6xl mx-auto pb-12">
       {/* =========================================================================
-          1. HERO SECTION (AVIONICS COMMAND CENTER & TURBOFAN DIGITAL TWIN)
+          1. HERO SECTION
           ========================================================================= */}
-      <section className="relative rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden text-white">
-        {/* Ambient atmospheric glows */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-teal-500/15 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/10 via-transparent to-transparent pointer-events-none" />
+      <section className="relative bg-white rounded-2xl border border-surface-border p-6 sm:p-10 shadow-card overflow-hidden">
+        {/* Subtle Background Geometry */}
+        <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-light/40 blur-3xl pointer-events-none" />
+        <div className="absolute right-8 bottom-8 opacity-5 pointer-events-none hidden lg:block">
+          <Plane className="w-96 h-96 -rotate-45" />
+        </div>
 
-        {/* Precision Avionics Grid Lines */}
-        <div 
-          className="absolute inset-0 opacity-[0.07] pointer-events-none"
-          style={{
-            backgroundImage: 'linear-gradient(to right, #38bdf8 1px, transparent 1px), linear-gradient(to bottom, #38bdf8 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }}
-        />
+        <div className="relative z-10 max-w-3xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-semibold border border-primary-200">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>AI-Powered Predictive Maintenance System</span>
+          </div>
 
-        <div className="relative z-10 p-6 sm:p-10 lg:p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            
-            {/* Left Column: Branding, Pitch, Tagline & Capabilities (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* Category / System Status Pill */}
-              <div className="flex flex-wrap items-center gap-2.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-semibold backdrop-blur-md shadow-xs">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400" />
-                  </span>
-                  <span>AI-Powered Predictive Maintenance System</span>
-                </div>
-                <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-[11px] font-mono text-slate-400">
-                  <Radio className="w-3 h-3 text-teal-400" />
-                  NASA C-MAPSS Telemetry
-                </span>
-              </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-main tracking-tight leading-tight">
+            About <span className="text-primary font-mono">AuroPulseAI</span>
+          </h1>
 
-              {/* Main Heading */}
-              <div className="space-y-2">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1]">
-                  About <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-emerald-300 to-cyan-300 font-mono">AuroPulseAI</span>
-                </h1>
-                <p className="text-base sm:text-lg font-medium text-slate-200 leading-snug">
-                  Intelligent Engine Health Monitoring Through Machine Learning.
-                </p>
-              </div>
+          <p className="text-base sm:text-lg font-semibold text-slate-700 leading-snug">
+            Intelligent Engine Health Monitoring Through Machine Learning.
+          </p>
 
-              {/* Detailed Lead Description */}
-              <p className="text-xs sm:text-sm text-slate-300/90 leading-relaxed font-normal max-w-2xl">
-                AuroPulseAI is an enterprise-grade AI predictive maintenance platform that analyzes aircraft turbofan sensor measurements and estimates Remaining Useful Life (RUL) using independently trained XGBoost regression models.
-              </p>
+          <p className="text-xs sm:text-sm text-secondary leading-relaxed max-w-2xl">
+            AuroPulseAI is an enterprise-grade AI predictive maintenance platform that analyzes aircraft turbofan sensor measurements and estimates Remaining Useful Life (RUL) using independently trained XGBoost regression models.
+          </p>
 
-              {/* Official Tagline Banner */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-slate-400">
-                  Tagline:
-                </span>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-gradient-to-r from-slate-900 to-slate-950 border border-teal-500/40 text-teal-300 font-mono text-xs sm:text-sm font-extrabold tracking-wider shadow-[0_0_20px_rgba(20,184,166,0.15)]">
-                  <Sparkles className="w-4 h-4 text-teal-400" />
-                  <span>Monitor. Predict. Prevent.</span>
-                </div>
-              </div>
+          {/* Official Tagline Badge */}
+          <div className="pt-2 flex items-center gap-2">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Tagline:</span>
+            <span className="px-3 py-1 bg-slate-900 text-white rounded-lg font-mono text-xs font-extrabold tracking-wider shadow-xs">
+              Monitor. Predict. Prevent.
+            </span>
+          </div>
 
-              {/* 6 Key Architectural Highlights */}
-              <div className="pt-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block mb-2.5">
-                  Core Engineering Highlights:
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Database className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">NASA C-MAPSS Dataset</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Cpu className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">XGBoost ML</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Layers className="w-4 h-4 text-indigo-400 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">FD001 & FD002 Models</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">RUL Prediction</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Server className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">FastAPI Backend</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:border-slate-700 transition-colors">
-                    <Activity className="w-4 h-4 text-teal-300 shrink-0" />
-                    <span className="truncate font-medium text-[11px] sm:text-xs">Interactive Dashboard</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Navigation Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <Link
-                  to="/"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-slate-950 font-bold text-xs shadow-lg shadow-teal-500/20 active:scale-98 transition-all"
-                >
-                  <LayoutDashboard className="w-4 h-4 text-slate-950" />
-                  <span>Launch Fleet Overview</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <Link
-                  to="/rul-prediction"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs transition-all active:scale-98"
-                >
-                  <Zap className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Run RUL Predictor</span>
-                </Link>
-              </div>
-
-            </div>
-
-            {/* Right Column: Turbofan Video Digital Twin Showcase (5 cols) */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl p-1 bg-gradient-to-b from-teal-500/40 via-slate-800/60 to-slate-900/80 border border-teal-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.7)] group">
-                
-                {/* Glowing Corner Accents */}
-                <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-teal-400 rounded-tl-sm pointer-events-none" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-teal-400 rounded-tr-sm pointer-events-none" />
-                <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-teal-400 rounded-bl-sm pointer-events-none" />
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-teal-400 rounded-br-sm pointer-events-none" />
-
-                {/* Video Card Container */}
-                <div className="relative rounded-xl overflow-hidden bg-slate-950 aspect-[16/10] sm:aspect-video lg:aspect-[4/3] flex items-center justify-center">
-                  
-                  {/* The Autoplaying Video */}
-                  <video
-                    ref={videoRef}
-                    src="/hero-engine.mp4"
-                    autoPlay
-                    loop
-                    muted={isMuted}
-                    playsInline
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  {/* Avionics Scanline & HUD Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40 pointer-events-none" />
-
-                  {/* Top HUD Overlay: Live Twin Indicator & Quick Controls */}
-                  <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-20">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md border border-teal-500/40 text-[10px] font-mono font-bold text-teal-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                      TURBOFAN DIGITAL TWIN
-                    </div>
-
-                    {/* Video Player Action Buttons */}
-                    <div className="flex items-center gap-1.5 bg-slate-950/80 backdrop-blur-md border border-slate-700/80 p-1 rounded-lg">
-                      <button
-                        onClick={handleTogglePlay}
-                        title={isPlaying ? 'Pause Loop' : 'Resume Loop'}
-                        className="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      >
-                        {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                      </button>
-                      <button
-                        onClick={handleToggleMute}
-                        title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
-                        className="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      >
-                        {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-teal-400" />}
-                      </button>
-                      <button
-                        onClick={handleFullscreen}
-                        title="Enter Fullscreen"
-                        className="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      >
-                        <Maximize2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Center Play Overlay on Hover/Pause if user pauses */}
-                  {!isPlaying && (
-                    <div
-                      onClick={handleTogglePlay}
-                      className="absolute inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center cursor-pointer z-10"
-                    >
-                      <div className="w-14 h-14 rounded-full bg-teal-500/20 border border-teal-400 text-teal-300 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                        <Play className="w-6 h-6 ml-0.5 fill-current" />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Bottom HUD Telemetry Overlay */}
-                  <div className="absolute bottom-3 inset-x-3 z-20">
-                    <div className="p-2.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-slate-800/80 text-[10px] font-mono text-slate-300 space-y-1.5 shadow-xl">
-                      <div className="flex items-center justify-between text-slate-400 text-[9px] uppercase tracking-wider border-b border-slate-800 pb-1">
-                        <span className="flex items-center gap-1 text-teal-400 font-bold">
-                          <Activity className="w-3 h-3" /> STAGE-1 CORE DYNAMICS
-                        </span>
-                        <span className="text-emerald-400">ONLINE • 21 SENSORS</span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 text-center pt-0.5">
-                        <div>
-                          <div className="text-[9px] text-slate-400">CORE SPEED</div>
-                          <div className="font-bold text-white text-[11px]">9,240 RPM</div>
-                        </div>
-                        <div>
-                          <div className="text-[9px] text-slate-400">EGT TEMP</div>
-                          <div className="font-bold text-amber-400 text-[11px]">642.8 °C</div>
-                        </div>
-                        <div>
-                          <div className="text-[9px] text-slate-400">INFERENCE</div>
-                          <div className="font-bold text-teal-300 text-[11px]">&lt; 35 ms</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Caption below frame */}
-                <div className="pt-2 px-2 pb-1 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                  <span className="flex items-center gap-1.5">
-                    <Plane className="w-3.5 h-3.5 text-teal-400" />
-                    Turbofan High-Pressure Compressor (HPC)
-                  </span>
-                  <span className="text-[10px] text-teal-400/90 font-semibold">
-                    Simulated Wear Loop
-                  </span>
-                </div>
-
-              </div>
-            </div>
-
+          {/* Highlights Badges */}
+          <div className="pt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Database className="w-3.5 h-3.5 text-blue-600" />
+              NASA C-MAPSS Dataset
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Cpu className="w-3.5 h-3.5 text-primary" />
+              XGBoost Machine Learning
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-indigo-600" />
+              FD001 & FD002 Models
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-amber-600" />
+              RUL Prediction
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Server className="w-3.5 h-3.5 text-emerald-600" />
+              FastAPI Backend
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center gap-1.5">
+              <Activity className="w-3.5 h-3.5 text-teal-600" />
+              Interactive React Dashboard
+            </span>
           </div>
         </div>
       </section>

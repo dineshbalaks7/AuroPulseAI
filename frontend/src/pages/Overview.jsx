@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Activity,
   CheckCircle2,
@@ -9,7 +8,6 @@ import {
   Wrench,
   RefreshCw,
   ServerOff,
-  Play,
 } from 'lucide-react';
 import { useDataset } from '../context/DatasetContext';
 import engineService from '../services/engineService';
@@ -98,13 +96,6 @@ export const Overview = () => {
         </div>
 
         <div className="flex items-center gap-2.5 self-start sm:self-auto">
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-teal-200 bg-teal-50/80 hover:bg-teal-100 text-teal-800 text-xs font-semibold transition-all shadow-xs hover:shadow-card-hover active:scale-98"
-          >
-            <Play className="w-3.5 h-3.5 text-teal-600 fill-teal-600" />
-            <span>Turbofan Twin</span>
-          </Link>
           <button
             onClick={() => {
               fetchData();
